@@ -20,27 +20,25 @@ body{
 }
 
 body{
-    font-family:'Poppins','Segoe UI',Arial,sans-serif;
+    font-family:'Poppins',sans-serif;
     background:var(--bg);
     color:var(--text);
     min-height:100vh;
     overflow-x:hidden;
     overflow-y:auto;
-    position:relative;
 }
 
-/* SAME BACKGROUND STYLE AS THE FIRST WEBSITE */
-body::before{
-    content:"";
+.background{
     position:fixed;
     inset:0;
+    color:var(--accent);
     background:radial-gradient(circle at top,#9CD1F3,#0D1927 70%);
     z-index:-3;
 }
 
-body::after{
+.background::before{
     content:"";
-    position:fixed;
+    position:absolute;
     width:650px;
     height:650px;
     background:#9CD1F3;
@@ -49,17 +47,28 @@ body::after{
     top:-220px;
     left:50%;
     transform:translateX(-50%);
-    z-index:-2;
-    pointer-events:none;
+}
+
+.background::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+        linear-gradient(rgba(13,25,39,.92) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(156,209,243,.055) 1px, transparent 1px);
+    background-size:45px 45px;
+    animation:scan 12s linear infinite;
 }
 
 .screen{
-    display:none;
+    position:relative;
     width:100%;
     min-height:100vh;
-    padding:25px;
+    display:none;
     justify-content:center;
     align-items:center;
+    padding:25px;
+    overflow-y:auto;
 }
 
 .screen.active{
@@ -67,12 +76,6 @@ body::after{
     animation:fade .45s;
 }
 
-#cardScreen.active{
-    align-items:center;
-    justify-content:center;
-}
-
-/* MAIN PANELS - MATCHES THE FIRST WEBSITE */
 .panel{
     width:520px;
     max-width:95%;
@@ -85,16 +88,12 @@ body::after{
     animation:fade .45s;
 }
 
-.formPanel{
-    width:520px;
-}
-
-h1{
+.logo{
     text-align:center;
-    font-family:'Orbitron','Segoe UI',Arial,sans-serif;
+    font-family:'Orbitron',sans-serif;
     font-size:78px;
     font-weight:800;
-    color:#9CD1F3;
+    color:var(--accent);
     letter-spacing:8px;
     text-shadow:
         0 0 12px #9CD1F3,
@@ -103,39 +102,33 @@ h1{
     animation:flicker 2.2s infinite;
 }
 
+h1.logo{
+    margin:0;
+}
+
 h2{
     text-align:center;
-    font-family:'Orbitron','Segoe UI',Arial,sans-serif;
+    font-family:'Orbitron',sans-serif;
     margin-bottom:20px;
     letter-spacing:2px;
-    color:#9CD1F3;
 }
 
 p{
     line-height:1.6;
 }
 
-.tagline,
-.description{
-    text-align:center;
-    color:#9CD1F3;
-    line-height:1.6;
-    margin-bottom:20px;
-}
-
-/* BUTTONS - MATCHES THE FIRST WEBSITE */
 button{
     width:100%;
     margin-top:18px;
     padding:15px;
     border:none;
     border-radius:12px;
-    background:linear-gradient(90deg,#9CD1F3,#9CD1F3);
-    color:#0D1927;
-    font-family:'Orbitron','Segoe UI',Arial,sans-serif;
+    background:linear-gradient(90deg,#9CD1F3,#0D1927);
+    color:white;
+    font-family:'Orbitron',sans-serif;
     font-size:15px;
-    font-weight:bold;
-    letter-spacing:1px;
+    font-weight:600;
+    letter-spacing:0;
     cursor:pointer;
     transition:.28s;
 }
@@ -149,40 +142,11 @@ button:active{
     transform:scale(.98);
 }
 
-/* CREW BUTTONS */
-.unit-container{
-    display:flex;
-    gap:12px;
-    margin-top:15px;
-    width:100%;
-}
-
-.unit-btn{
-    flex:1 1 0;
-    min-width:0;
-    width:auto;
-    margin-top:0;
-    padding:15px 8px;
-    font-size:14px;
-}
-
-.buttonGroup{
-    display:flex;
-    gap:12px;
-    margin-top:15px;
-}
-
-.buttonGroup button{
-    margin-top:0;
-}
-
-/* LOADING */
 .loading-bar{
     width:100%;
     height:18px;
     margin-top:30px;
     background:#0D1927;
-    border:1px solid #9CD1F3;
     border-radius:30px;
     overflow:hidden;
 }
@@ -193,7 +157,6 @@ button:active{
     height:100%;
     background:linear-gradient(90deg,#0D1927,#9CD1F3);
     transition:width .03s;
-    box-shadow:0 0 12px #9CD1F3;
 }
 
 #loadingText,
@@ -201,12 +164,29 @@ button:active{
     text-align:center;
     margin-top:15px;
     color:#9CD1F3;
-    letter-spacing:1px;
 }
 
-/* FORM */
-.formPanel input,
-.formPanel textarea{
+.unit-container{
+    display:flex;
+    flex-direction:column;
+    gap:0;
+    margin-top:0;
+}
+
+.unit-btn{
+    width:100%;
+    margin-top:18px;
+    padding:15px;
+    font-size:15px;
+}
+
+.formPanel{
+    width:520px;
+}
+
+input,
+select,
+textarea{
     width:100%;
     margin-top:15px;
     padding:15px 18px;
@@ -215,28 +195,29 @@ button:active{
     border-radius:12px;
     color:#9CD1F3;
     font-size:15px;
-    font-family:'Poppins','Segoe UI',Arial,sans-serif;
+    font-family:'Poppins',sans-serif;
     outline:none;
     transition:.3s;
 }
 
-.formPanel input::placeholder,
-.formPanel textarea::placeholder{
+input::placeholder,
+textarea::placeholder{
     color:#9CD1F3;
 }
 
-.formPanel input:focus,
-.formPanel textarea:focus{
+input:focus,
+select:focus,
+textarea:focus{
     border-color:#9CD1F3;
     box-shadow:0 0 15px #9CD1F3;
 }
 
-.formPanel textarea{
+textarea{
     resize:none;
     min-height:120px;
 }
 
-.formPanel label{
+label{
     display:block;
     margin-top:18px;
     margin-bottom:8px;
@@ -246,57 +227,46 @@ button:active{
 
 input[type=file]{
     cursor:pointer;
-    background:#0D1927;
 }
 
 input[type=file]::file-selector-button{
     background:#9CD1F3;
-    color:#0D1927;
+    color:white;
     border:none;
     padding:10px 18px;
     border-radius:8px;
     margin-right:12px;
     cursor:pointer;
-    transition:.25s;
-}
-
-input[type=file]::file-selector-button:hover{
-    box-shadow:0 0 12px #9CD1F3;
 }
 
 #nextBtn{
     margin-top:18px;
 }
 
-/* CONFIRMATION */
 #summaryCard{
     background:#0D1927;
     border:1px solid #9CD1F3;
     border-radius:14px;
     padding:18px;
-    margin-top:20px;
+    margin-top:0;
 }
 
 .summaryRow{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:10px 0;
-    border-bottom:1px solid rgba(156,209,243,.25);
-}
-
-.summaryRow:last-child{
-    border-bottom:none;
+    margin:10px 0;
+    gap:15px;
 }
 
 .summaryRow span{
     color:#9CD1F3;
-    font-size:14px;
 }
 
 .summaryRow p{
-    color:#9CD1F3;
-    font-weight:600;
+    color:white;
+    text-align:right;
+    word-break:break-word;
 }
 
 .summaryPhoto{
@@ -316,6 +286,16 @@ input[type=file]::file-selector-button:hover{
     object-position:center;
 }
 
+.buttonGroup{
+    display:flex;
+    gap:12px;
+    margin-top:15px;
+}
+
+.buttonGroup button{
+    margin-top:0;
+}
+
 #verify .panel{
     text-align:center;
 }
@@ -325,24 +305,29 @@ input[type=file]::file-selector-button:hover{
 }
 
 #verifyText{
-    margin-top:15px;
     font-size:15px;
-    color:#9CD1F3;
 }
 
-::placeholder{
-    color:#9CD1F3;
+/* =====================
+   APPLICANT ID CARD
+===================== */
+
+.card-container{
+    width:850px;
+    max-width:95%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
 }
 
-/* GENERATED ID CARD - KEPT SEPARATE FROM THE MAIN PANEL SIZE */
 .applicant-card{
     width:850px;
     max-width:100%;
     background:rgba(13,25,39,.96);
-    border:2px solid #9CD1F3;
+    border:2px solid rgba(156,209,243,.45);
     border-radius:22px;
     overflow:hidden;
-    box-shadow:0 0 45px #9CD1F3;
+    box-shadow:0 0 45px rgba(156,209,243,.30);
     position:relative;
     animation:cardAppear .5s ease;
 }
@@ -374,11 +359,15 @@ input[type=file]::file-selector-button:hover{
     background:linear-gradient(90deg,#9CD1F3,#0D1927);
 }
 
-.card-top .logo{
+.card-top .logo,
+.card-logo{
+    font-family:'Orbitron',sans-serif;
     font-size:34px;
     font-weight:bold;
     letter-spacing:6px;
-    color:#0D1927;
+    color:white;
+    text-shadow:none;
+    animation:none;
 }
 
 .card-title{
@@ -429,7 +418,8 @@ input[type=file]::file-selector-button:hover{
     justify-content:space-between;
     align-items:center;
     padding:10px 0;
-    border-bottom:1px solid rgba(156,209,243,.20);
+    border-bottom:1px solid rgba(156,209,243,.10);
+    gap:15px;
 }
 
 .row:last-child{
@@ -455,18 +445,10 @@ input[type=file]::file-selector-button:hover{
     padding:18px;
     text-align:center;
     background:#0D1927;
-    border-top:1px solid rgba(156,209,243,.20);
+    border-top:1px solid rgba(156,209,243,.10);
     letter-spacing:3px;
     color:#9CD1F3;
     font-weight:bold;
-}
-
-.card-container{
-    width:850px;
-    max-width:95%;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
 }
 
 .download-area{
@@ -490,13 +472,30 @@ input[type=file]::file-selector-button:hover{
 }
 
 @keyframes flicker{
-    0%,18%,22%,25%,53%,57%,100%{opacity:1;}
-    20%,24%,55%{opacity:.45;}
+    0%,18%,22%,25%,53%,57%,100%{
+        opacity:1;
+    }
+    20%,24%,55%{
+        opacity:.45;
+    }
+}
+
+@keyframes scan{
+    from{
+        background-position:0 0;
+    }
+    to{
+        background-position:45px 45px;
+    }
 }
 
 @keyframes scanner{
-    from{transform:translateX(-250%);}
-    to{transform:translateX(550%);}
+    from{
+        transform:translateX(-250%);
+    }
+    to{
+        transform:translateX(550%);
+    }
 }
 
 @keyframes cardAppear{
@@ -507,6 +506,42 @@ input[type=file]::file-selector-button:hover{
     to{
         opacity:1;
         transform:scale(1);
+    }
+}
+
+@media(max-width:600px){
+    .panel{
+        width:95%;
+        padding:28px;
+    }
+
+    .logo{
+        font-size:52px;
+        letter-spacing:4px;
+    }
+
+    button{
+        padding:14px;
+    }
+
+    .buttonGroup{
+        flex-direction:column;
+    }
+
+    .summaryRow{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:4px;
+    }
+
+    .summaryRow p{
+        text-align:left;
+    }
+}
+
+@media(max-width:700px){
+    .formPanel{
+        width:95%;
     }
 }
 
@@ -533,46 +568,15 @@ input[type=file]::file-selector-button:hover{
     .row p{
         text-align:left;
     }
-}
 
-@media(max-width:700px){
-    .panel,
-    .formPanel{
+    .download-area{
         width:95%;
-    }
-
-    .buttonGroup{
-        flex-direction:column;
-    }
-}
-
-@media(max-width:600px){
-    .panel{
-        padding:28px;
-    }
-
-    h1{
-        font-size:52px;
-        letter-spacing:4px;
-    }
-
-    .unit-container{
-        flex-direction:column;
-    }
-
-    .unit-btn{
-        width:100%;
     }
 }
 
 @media(max-width:500px){
-    .card-top{
-        flex-direction:column;
-        gap:8px;
-        text-align:center;
-    }
-
-    .card-top .logo{
+    .card-top .logo,
+    .card-logo{
         font-size:24px;
         letter-spacing:3px;
     }
@@ -585,17 +589,4 @@ input[type=file]::file-selector-button:hover{
         width:150px;
         height:190px;
     }
-}
-
-::-webkit-scrollbar{
-    width:8px;
-}
-
-::-webkit-scrollbar-thumb{
-    background:#9CD1F3;
-    border-radius:50px;
-}
-
-::-webkit-scrollbar-track{
-    background:#0D1927;
 }
