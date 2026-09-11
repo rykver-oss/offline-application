@@ -1,0 +1,601 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#0D1927;
+    --panel:#0D1927;
+    --accent:#9CD1F3;
+    --accent-dark:#9CD1F3;
+    --text:#9CD1F3;
+    --gray:#9CD1F3;
+}
+
+html,
+body{
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    font-family:'Poppins','Segoe UI',Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+    overflow-x:hidden;
+    overflow-y:auto;
+    position:relative;
+}
+
+/* SAME BACKGROUND STYLE AS THE FIRST WEBSITE */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:radial-gradient(circle at top,#9CD1F3,#0D1927 70%);
+    z-index:-3;
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    width:650px;
+    height:650px;
+    background:#9CD1F3;
+    filter:blur(170px);
+    opacity:.12;
+    top:-220px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:-2;
+    pointer-events:none;
+}
+
+.screen{
+    display:none;
+    width:100%;
+    min-height:100vh;
+    padding:25px;
+    justify-content:center;
+    align-items:center;
+}
+
+.screen.active{
+    display:flex;
+    animation:fade .45s;
+}
+
+#cardScreen.active{
+    align-items:center;
+    justify-content:center;
+}
+
+/* MAIN PANELS - MATCHES THE FIRST WEBSITE */
+.panel{
+    width:520px;
+    max-width:95%;
+    background:var(--panel);
+    backdrop-filter:blur(16px);
+    border-radius:22px;
+    border:1px solid #9CD1F3;
+    padding:40px;
+    box-shadow:0 0 40px #9CD1F3;
+    animation:fade .45s;
+}
+
+.formPanel{
+    width:520px;
+}
+
+h1{
+    text-align:center;
+    font-family:'Orbitron','Segoe UI',Arial,sans-serif;
+    font-size:78px;
+    font-weight:800;
+    color:#9CD1F3;
+    letter-spacing:8px;
+    text-shadow:
+        0 0 12px #9CD1F3,
+        0 0 35px #9CD1F3,
+        0 0 70px #9CD1F3;
+    animation:flicker 2.2s infinite;
+}
+
+h2{
+    text-align:center;
+    font-family:'Orbitron','Segoe UI',Arial,sans-serif;
+    margin-bottom:20px;
+    letter-spacing:2px;
+    color:#9CD1F3;
+}
+
+p{
+    line-height:1.6;
+}
+
+.tagline,
+.description{
+    text-align:center;
+    color:#9CD1F3;
+    line-height:1.6;
+    margin-bottom:20px;
+}
+
+/* BUTTONS - MATCHES THE FIRST WEBSITE */
+button{
+    width:100%;
+    margin-top:18px;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(90deg,#9CD1F3,#9CD1F3);
+    color:#0D1927;
+    font-family:'Orbitron','Segoe UI',Arial,sans-serif;
+    font-size:15px;
+    font-weight:bold;
+    letter-spacing:1px;
+    cursor:pointer;
+    transition:.28s;
+}
+
+button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 0 22px #9CD1F3;
+}
+
+button:active{
+    transform:scale(.98);
+}
+
+/* CREW BUTTONS */
+.unit-container{
+    display:flex;
+    gap:12px;
+    margin-top:15px;
+    width:100%;
+}
+
+.unit-btn{
+    flex:1 1 0;
+    min-width:0;
+    width:auto;
+    margin-top:0;
+    padding:15px 8px;
+    font-size:14px;
+}
+
+.buttonGroup{
+    display:flex;
+    gap:12px;
+    margin-top:15px;
+}
+
+.buttonGroup button{
+    margin-top:0;
+}
+
+/* LOADING */
+.loading-bar{
+    width:100%;
+    height:18px;
+    margin-top:30px;
+    background:#0D1927;
+    border:1px solid #9CD1F3;
+    border-radius:30px;
+    overflow:hidden;
+}
+
+#loadingProgress,
+#verifyProgress{
+    width:0%;
+    height:100%;
+    background:linear-gradient(90deg,#0D1927,#9CD1F3);
+    transition:width .03s;
+    box-shadow:0 0 12px #9CD1F3;
+}
+
+#loadingText,
+#verifyText{
+    text-align:center;
+    margin-top:15px;
+    color:#9CD1F3;
+    letter-spacing:1px;
+}
+
+/* FORM */
+.formPanel input,
+.formPanel textarea{
+    width:100%;
+    margin-top:15px;
+    padding:15px 18px;
+    background:#0D1927;
+    border:1px solid #9CD1F3;
+    border-radius:12px;
+    color:#9CD1F3;
+    font-size:15px;
+    font-family:'Poppins','Segoe UI',Arial,sans-serif;
+    outline:none;
+    transition:.3s;
+}
+
+.formPanel input::placeholder,
+.formPanel textarea::placeholder{
+    color:#9CD1F3;
+}
+
+.formPanel input:focus,
+.formPanel textarea:focus{
+    border-color:#9CD1F3;
+    box-shadow:0 0 15px #9CD1F3;
+}
+
+.formPanel textarea{
+    resize:none;
+    min-height:120px;
+}
+
+.formPanel label{
+    display:block;
+    margin-top:18px;
+    margin-bottom:8px;
+    font-size:14px;
+    color:#9CD1F3;
+}
+
+input[type=file]{
+    cursor:pointer;
+    background:#0D1927;
+}
+
+input[type=file]::file-selector-button{
+    background:#9CD1F3;
+    color:#0D1927;
+    border:none;
+    padding:10px 18px;
+    border-radius:8px;
+    margin-right:12px;
+    cursor:pointer;
+    transition:.25s;
+}
+
+input[type=file]::file-selector-button:hover{
+    box-shadow:0 0 12px #9CD1F3;
+}
+
+#nextBtn{
+    margin-top:18px;
+}
+
+/* CONFIRMATION */
+#summaryCard{
+    background:#0D1927;
+    border:1px solid #9CD1F3;
+    border-radius:14px;
+    padding:18px;
+    margin-top:20px;
+}
+
+.summaryRow{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 0;
+    border-bottom:1px solid rgba(156,209,243,.25);
+}
+
+.summaryRow:last-child{
+    border-bottom:none;
+}
+
+.summaryRow span{
+    color:#9CD1F3;
+    font-size:14px;
+}
+
+.summaryRow p{
+    color:#9CD1F3;
+    font-weight:600;
+}
+
+.summaryPhoto{
+    width:140px;
+    height:180px;
+    margin:0 auto 20px;
+    border-radius:12px;
+    overflow:hidden;
+    border:2px solid #9CD1F3;
+    background:#0D1927;
+}
+
+.summaryPhoto img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center;
+}
+
+#verify .panel{
+    text-align:center;
+}
+
+#verify h2{
+    margin-bottom:20px;
+}
+
+#verifyText{
+    margin-top:15px;
+    font-size:15px;
+    color:#9CD1F3;
+}
+
+::placeholder{
+    color:#9CD1F3;
+}
+
+/* GENERATED ID CARD - KEPT SEPARATE FROM THE MAIN PANEL SIZE */
+.applicant-card{
+    width:850px;
+    max-width:100%;
+    background:rgba(13,25,39,.96);
+    border:2px solid #9CD1F3;
+    border-radius:22px;
+    overflow:hidden;
+    box-shadow:0 0 45px #9CD1F3;
+    position:relative;
+    animation:cardAppear .5s ease;
+}
+
+.applicant-card::before{
+    content:"";
+    position:absolute;
+    left:-100%;
+    top:0;
+    width:45%;
+    height:100%;
+    background:linear-gradient(90deg,transparent,rgba(156,209,243,.12),transparent);
+    animation:scanner 5s linear infinite;
+}
+
+.applicant-card.downloading::before{
+    display:none;
+}
+
+.applicant-card.downloading{
+    animation:none;
+}
+
+.card-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:22px 30px;
+    background:linear-gradient(90deg,#9CD1F3,#0D1927);
+}
+
+.card-top .logo{
+    font-size:34px;
+    font-weight:bold;
+    letter-spacing:6px;
+    color:#0D1927;
+}
+
+.card-title{
+    font-size:18px;
+    font-weight:bold;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:white;
+}
+
+.card-body{
+    display:flex;
+    gap:35px;
+    padding:30px;
+}
+
+.photo-box{
+    width:180px;
+    height:230px;
+    flex-shrink:0;
+    border:3px solid #9CD1F3;
+    border-radius:14px;
+    overflow:hidden;
+    background:#0D1927;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.photo-box img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center;
+    display:block;
+}
+
+.details{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:12px;
+}
+
+.row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 0;
+    border-bottom:1px solid rgba(156,209,243,.20);
+}
+
+.row:last-child{
+    border-bottom:none;
+}
+
+.row span{
+    color:#9CD1F3;
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.row p{
+    color:white;
+    font-size:16px;
+    font-weight:600;
+    text-align:right;
+    word-break:break-word;
+}
+
+.card-footer{
+    padding:18px;
+    text-align:center;
+    background:#0D1927;
+    border-top:1px solid rgba(156,209,243,.20);
+    letter-spacing:3px;
+    color:#9CD1F3;
+    font-weight:bold;
+}
+
+.card-container{
+    width:850px;
+    max-width:95%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.download-area{
+    width:100%;
+    margin-top:20px;
+}
+
+.download-area button{
+    width:100%;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(18px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes flicker{
+    0%,18%,22%,25%,53%,57%,100%{opacity:1;}
+    20%,24%,55%{opacity:.45;}
+}
+
+@keyframes scanner{
+    from{transform:translateX(-250%);}
+    to{transform:translateX(550%);}
+}
+
+@keyframes cardAppear{
+    from{
+        opacity:0;
+        transform:scale(.92);
+    }
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+@media(max-width:850px){
+    .applicant-card{
+        width:95%;
+    }
+
+    .card-body{
+        flex-direction:column;
+        align-items:center;
+    }
+
+    .details{
+        width:100%;
+    }
+
+    .row{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:6px;
+    }
+
+    .row p{
+        text-align:left;
+    }
+}
+
+@media(max-width:700px){
+    .panel,
+    .formPanel{
+        width:95%;
+    }
+
+    .buttonGroup{
+        flex-direction:column;
+    }
+}
+
+@media(max-width:600px){
+    .panel{
+        padding:28px;
+    }
+
+    h1{
+        font-size:52px;
+        letter-spacing:4px;
+    }
+
+    .unit-container{
+        flex-direction:column;
+    }
+
+    .unit-btn{
+        width:100%;
+    }
+}
+
+@media(max-width:500px){
+    .card-top{
+        flex-direction:column;
+        gap:8px;
+        text-align:center;
+    }
+
+    .card-top .logo{
+        font-size:24px;
+        letter-spacing:3px;
+    }
+
+    .card-title{
+        font-size:14px;
+    }
+
+    .photo-box{
+        width:150px;
+        height:190px;
+    }
+}
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#9CD1F3;
+    border-radius:50px;
+}
+
+::-webkit-scrollbar-track{
+    background:#0D1927;
+}

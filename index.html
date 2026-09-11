@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>OFFLINE APPLICATION</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<section class="screen active" id="opening">
+
+    <div class="panel">
+
+        <h1>OFFLINE</h1>
+
+        <button id="startBtn">
+            BREAK IN
+        </button>
+
+    </div>
+
+</section>
+
+<section class="screen" id="loading">
+
+    <div class="panel">
+
+        <h2>ACCESSING THE UNDERGROUND</h2>
+
+        <div class="loading-bar">
+
+            <div id="loadingProgress"></div>
+
+        </div>
+
+        <p id="loadingText">
+
+            Getting things ready...
+
+        </p>
+
+    </div>
+
+</section>
+
+<section class="screen" id="unit">
+
+    <div class="panel">
+
+        <h2>PICK YOUR CREW</h2>
+
+        <div class="unit-container">
+
+            <button class="unit-btn" id="dissidence">
+                DISSIDENCE
+            </button>
+
+            <button class="unit-btn" id="dissonance">
+                DISSONANCE
+            </button>
+
+            <button class="unit-btn" id="conclave">
+                CONCLAVE
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="screen" id="application">
+
+<div class="panel formPanel">
+
+<h2>UNDERGROUND DOSSIER</h2>
+
+<input
+type="text"
+id="name"
+placeholder="Name">
+
+<input
+type="text"
+id="port"
+placeholder="Port">
+
+<label>
+
+Face Claim Photo
+
+</label>
+
+<input
+type="file"
+id="photo"
+accept="image/*">
+
+<input
+type="text"
+id="formerNames"
+placeholder="Former Names">
+
+<input
+type="text"
+id="formerAffiliations"
+placeholder="Former Affiliations">
+
+<textarea
+id="accounts"
+placeholder="Current Accounts"></textarea>
+
+<button id="nextBtn">
+
+NEXT
+
+</button>
+
+</div>
+
+</section>
+
+<section class="screen" id="confirm">
+
+<div class="panel">
+
+<h2>WHO ARE YOU?</h2>
+
+<div id="summaryCard">
+
+</div>
+
+<div class="buttonGroup">
+
+<button id="editBtn">
+
+BACK OUT
+
+</button>
+
+<button id="submitBtn">
+
+CONFIRM
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="screen" id="verify">
+
+<div class="panel">
+
+<h2>
+
+DIGGING THROUGH THE ARCHIVES
+
+</h2>
+
+<div class="loading-bar">
+
+<div id="verifyProgress">
+
+</div>
+
+</div>
+
+<p id="verifyText">
+
+Checking your entry...
+
+</p>
+
+</div>
+
+</section>
+
+<section class="screen" id="cardScreen">
+
+    <div class="card-container">
+
+    <div class="applicant-card" id="card">
+
+    <div class="card-top">
+        <div class="logo">OFFLINE</div>
+        <div class="card-title">UNDERGROUND ID</div>
+    </div>
+
+    <div class="card-body">
+
+        <div class="photo-box">
+            <img id="cardPhoto" src="" alt="Applicant">
+        </div>
+
+        <div class="details">
+
+            <div class="row">
+                <span>Name</span>
+                <p id="cardName"></p>
+            </div>
+
+            <div class="row">
+                <span>Port</span>
+                <p id="cardPort"></p>
+            </div>
+
+            <div class="row">
+                <span>Unit</span>
+                <p id="cardUnit"></p>
+            </div>
+
+            <div class="row">
+                <span>Application ID</span>
+                <p id="cardID"></p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="download-area">
+    <button id="downloadBtn">
+        KEEP THE RECEIPT
+    </button>
+</div>
+
+    </div>
+
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
